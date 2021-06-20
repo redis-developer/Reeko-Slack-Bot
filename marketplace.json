@@ -1,7 +1,7 @@
 {
     "app_name": "Reeko Slack Bot",
     "description": "Summarise documents on slack",
-    "hidden": "false",
+    "hidden": "true",
     "rank": "21",
     "type": "Full App",
     "contributed_by": "Community",
