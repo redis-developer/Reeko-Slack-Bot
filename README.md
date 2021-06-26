@@ -7,7 +7,7 @@
 [![forthebadge](https://forthebadge.com/images/badges/uses-js.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
 
-[![Reeko](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/Reeko_Slack_Bot.png)](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/Reeko_Slack_Bot.png)
+[![Reeko](https://raw.githubusercontent.com/redis-developer/Reeko-Slack-Bot/master/photos/Reeko_Slack_Bot.png)](https://raw.githubusercontent.com/redis-developer/Reeko-Slack-Bot/master/photos/Reeko_Slack_Bot.png)
 
 # Reeko Slack Bot
 
@@ -16,7 +16,7 @@ Video Link: [https://youtu.be/XYbWfOSYmyM](https://youtu.be/XYbWfOSYmyM)
 
 With 10+ million daily active users and millions of file shared everyday, Slack is where collaboration happens. Using Reeko you can find files, download them or delete them permanently from S3 bucket without leaving Slack or writing a single line of code. Everyday so many files are shared on Slack and we may lose track of the file we need. Using advanced Natural Language Processing (NLP) and Natural Language Understanding (NLU) techniques, Reeko extracts all the text from the long and boring documents and outputs the summary as an image. This way you don't even have to open the document to know what is inside of it!. Most of the time we don't know the exact name of the file we are looking for and we need autocomplete to figure out the exact file name for us. Reeko has a file search engine built right into Slack that helps you find any file on your S3 bucket.
 
-[![summarise_document](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/Summarise_Document.gif)](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/Summarise_Document.gif)
+[![summarise_document](https://raw.githubusercontent.com/redis-developer/Reeko-Slack-Bot/master/photos/Summarise_Document.gif)](https://raw.githubusercontent.com/redis-developer/Reeko-Slack-Bot/master/photos/Summarise_Document.gif)
 
 ## Table of Contents
 
@@ -62,7 +62,7 @@ Most of the time we don't know the exact name of the file we are looking for. We
 
 ## Architecture Diagram
 
-[![Slack-Bot-Architecture](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/Reeko-Slack-Bot-Architecture-Diagram.png)](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/Reeko-Slack-Bot-Architecture-Diagram.png)
+[![Slack-Bot-Architecture](https://raw.githubusercontent.com/redis-developer/Reeko-Slack-Bot/master/photos/Reeko-Slack-Bot-Architecture-Diagram.png)](https://raw.githubusercontent.com/redis-developer/Reeko-Slack-Bot/master/photos/Reeko-Slack-Bot-Architecture-Diagram.png)
 
 ## Redis Usage
 
@@ -106,7 +106,7 @@ Creating an index on RediSearch
 FT.CREATE file-index ON HASH SCHEMA file_name TEXT SORTABLE file_id TEXT created TEXT timestamp TEXT mimetype TEXT filetype TEXT user_id TEXT size
 ```
 
-[![1](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/screenshots/1.gif)](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/screenshots/1.gif)
+[![1](https://raw.githubusercontent.com/redis-developer/Reeko-Slack-Bot/master/photos/screenshots/1.gif)](https://raw.githubusercontent.com/redis-developer/Reeko-Slack-Bot/master/photos/screenshots/1.gif)
 
 ### File shared on Slack
 
@@ -123,9 +123,9 @@ JSON.SET amazonshareholderletterpdf . '{"file_id": "F022ACR81HP", "file_name": "
 
 ### /s3-get filename
 
-[![2](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/screenshots/2.gif)](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/screenshots/2.gif)
+[![2](https://raw.githubusercontent.com/redis-developer/Reeko-Slack-Bot/master/photos/screenshots/2.gif)](https://raw.githubusercontent.com/redis-developer/Reeko-Slack-Bot/master/photos/screenshots/2.gif)
 
-[![3](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/screenshots/3.gif)](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/screenshots/3.gif)
+[![3](https://raw.githubusercontent.com/redis-developer/Reeko-Slack-Bot/master/photos/screenshots/3.gif)](https://raw.githubusercontent.com/redis-developer/Reeko-Slack-Bot/master/photos/screenshots/3.gif)
 
 After fetching the filename from the **command["text"]** parameter we check if the document exists. If the document doesn’t exist it returns false and nothing is done. If the file is found, using the `JSON.GET` command we get the file’s name and then download it from the S3 bucket. The downloaded file is sent back as a direct message in Slack.
 
@@ -135,9 +135,9 @@ JSON.GET amazonshareholderletterpdf
 
 ### /s3-delete filename
 
-[![4](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/screenshots/4.gif)](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/screenshots/4.gif)
+[![4](https://raw.githubusercontent.com/redis-developer/Reeko-Slack-Bot/master/photos/screenshots/4.gif)](https://raw.githubusercontent.com/redis-developer/Reeko-Slack-Bot/master/photos/screenshots/4.gif)
 
-[![5](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/screenshots/5.gif)](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/screenshots/5.gif)
+[![5](https://raw.githubusercontent.com/redis-developer/Reeko-Slack-Bot/master/photos/screenshots/5.gif)](https://raw.githubusercontent.com/redis-developer/Reeko-Slack-Bot/master/photos/screenshots/5.gif)
 
 This command permanently deletes a file from the S3 bucket. All you have to do is get the filename from **command["text']** parameter. The file data is deleted from RedisJson using the `JSON.DEL` command and it is removed from RediSearch's suggestions using the `FT.SUGDEL` command. Users are informed once the file is successfully deleted
 
@@ -151,9 +151,9 @@ JSON.DEL amazonshareholderletterpdf
 
 ### /s3-search
 
-[![6](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/screenshots/6.gif)](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/screenshots/6.gif)
+[![6](https://raw.githubusercontent.com/redis-developer/Reeko-Slack-Bot/master/photos/screenshots/6.gif)](https://raw.githubusercontent.com/redis-developer/Reeko-Slack-Bot/master/photos/screenshots/6.gif)
 
-[![7](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/screenshots/7.gif)](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/screenshots/7.gif)
+[![7](https://raw.githubusercontent.com/redis-developer/Reeko-Slack-Bot/master/photos/screenshots/7.gif)](https://raw.githubusercontent.com/redis-developer/Reeko-Slack-Bot/master/photos/screenshots/7.gif)
 
 This command opens up a modal inside of Slack with a search bar, the user is suggested the file names depending on whatever text is written in. For example if the bucket has documents like abc.csv, abcd.csv, abcdef.csv upon typing `abc` we get will get these 3 results as a list from the `FT.SEARCH` command. After the user chooses one of the file from the suggestion the file is downloaded and sent back to slack.
 
@@ -163,9 +163,9 @@ FT.SEARCH file-index "ama"
 
 ### /summarise-document filename
 
-[![8](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/screenshots/8.gif)](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/screenshots/8.gif)
+[![8](https://raw.githubusercontent.com/redis-developer/Reeko-Slack-Bot/master/photos/screenshots/8.gif)](https://raw.githubusercontent.com/redis-developer/Reeko-Slack-Bot/master/photos/screenshots/8.gif)
 
-[![9](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/screenshots/9.gif)](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/screenshots/9.gif)
+[![9](https://raw.githubusercontent.com/redis-developer/Reeko-Slack-Bot/master/photos/screenshots/9.gif)](https://raw.githubusercontent.com/redis-developer/Reeko-Slack-Bot/master/photos/screenshots/9.gif)
 
 Using the summarise document command large documents can be converted into images
 
@@ -195,9 +195,9 @@ JSON.SET amazonshareholderletterpdf .file_path 'https://bucket-1234.s3.amazonaws
 
 Here is the document summary for the [Amazon 2020 shareholder letter](https://s2.q4cdn.com/299287126/files/doc_financials/2021/ar/Amazon-2020-Shareholder-Letter-and-1997-Shareholder-Letter.pdf)
 
-[![amazon-black](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/sample-templates/amazon-black.png)](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/sample-templates/amazon-black.png)
-[![amazon-blue](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/sample-templates/amazon-blue.png)](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/sample-templates/amazon-blue.png)
-[![amazon-white](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/sample-templates/amazon-white.png)](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/photos/sample-templates/amazon-blue.png)
+[![amazon-black](https://raw.githubusercontent.com/redis-developer/Reeko-Slack-Bot/master/photos/sample-templates/amazon-black.png)](https://raw.githubusercontent.com/redis-developer/Reeko-Slack-Bot/master/photos/sample-templates/amazon-black.png)
+[![amazon-blue](https://raw.githubusercontent.com/redis-developer/Reeko-Slack-Bot/master/photos/sample-templates/amazon-blue.png)](https://raw.githubusercontent.com/redis-developer/Reeko-Slack-Bot/master/photos/sample-templates/amazon-blue.png)
+[![amazon-white](https://raw.githubusercontent.com/redis-developer/Reeko-Slack-Bot/master/photos/sample-templates/amazon-white.png)](https://raw.githubusercontent.com/redis-developer/Reeko-Slack-Bot/master/photos/sample-templates/amazon-blue.png)
 
 ## Basic Installation Instructions
 
@@ -212,10 +212,10 @@ Redismod - a Docker image with select Redis Labs modules
 
 ### Python Backend
 
-To get the Bolt app running locally follow the instructions at [python-backend/README.md](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/python-backend/README.md)
+To get the Bolt app running locally follow the instructions at [python-backend/README.md](https://raw.githubusercontent.com/redis-developer/Reeko-Slack-Bot/master/python-backend/README.md)
 
 ### Nodejs Backend
 
-To get the Nodejs server running locally follow the instructions at [nodejs-backend/README.md](https://raw.githubusercontent.com/sarthakarora1208/Reeko-Slack-Bot/master/nodejs-backend/README.md)
+To get the Nodejs server running locally follow the instructions at [nodejs-backend/README.md](https://raw.githubusercontent.com/redis-developer/Reeko-Slack-Bot/master/nodejs-backend/README.md)
 
 [Illustrations vector created by stories - www.freepik.com](https://www.freepik.com/vectors/illustrations)
