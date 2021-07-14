@@ -28,7 +28,7 @@ Follow the following steps to create a virtual environment, clone the repository
 
 ```bash
 # Python 3.6+ required
-git clone https://github.com/sarthakarora1208/Reeko-Slack-Bot
+git clone https://github.com/redis-developer/Reeko-Slack-Bot
 cd Reeko-Slack-Bot
 python3 -m venv env
 source env/bin/activate
