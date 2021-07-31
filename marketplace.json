@@ -5,6 +5,7 @@
     "type": "Full App",
     "contributed_by": "Community",
     "repo_url": "https://github.com/redis-developer/Reeko-Slack-Bot",
+    "preview_image_url": "https://raw.githubusercontent.com/redis-developer/Reeko-Slack-Bot/master/images/app_preview_image.png",
     "download_url": "https://github.com/redis-developer/Reeko-Slack-Bot/archive/refs/heads/master.zip",
     "hosted_url": "",
     "quick_deploy": "false",
