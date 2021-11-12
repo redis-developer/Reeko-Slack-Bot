@@ -11,8 +11,7 @@
 
 # Reeko Slack Bot
 
-Video Link: [https://youtu.be/XYbWfOSYmyM](https://youtu.be/XYbWfOSYmyM)
-<br/>
+
 
 With 10+ million daily active users and millions of file shared everyday, Slack is where collaboration happens. Using Reeko you can find files, download them or delete them permanently from S3 bucket without leaving Slack or writing a single line of code. Everyday so many files are shared on Slack and we may lose track of the file we need. Using advanced Natural Language Processing (NLP) and Natural Language Understanding (NLU) techniques, Reeko extracts all the text from the long and boring documents and outputs the summary as an image. This way you don't even have to open the document to know what is inside of it!. Most of the time we don't know the exact name of the file we are looking for and we need autocomplete to figure out the exact file name for us. Reeko has a file search engine built right into Slack that helps you find any file on your S3 bucket.
 
