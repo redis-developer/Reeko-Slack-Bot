@@ -1,6 +1,6 @@
 {
     "app_name": "Reeko Slack Bot",
-    "description": "Summarise documents on Slack using RedisJSON + RediSearch",
+    "description": "Summarise documents on Slack using Redis JSON and Search",
     "rank": "56",
     "type": "Full App",
     "contributed_by": "Community",
@@ -11,17 +11,17 @@
     "quick_deploy": "false",
     "deploy_buttons": [
         {
-            "heroku": "https://heroku.com/deploy?template=https://github.com/redis-developer/Reeko-Slack-Bot.git" 
+            "heroku": "https://heroku.com/deploy?template=https://github.com/redis-developer/Reeko-Slack-Bot.git"
         },
         {
-            "Google": "https://deploy.cloud.run/?git_repo=https://github.com/redis-developer/Reeko-Slack-Bot.git" 
+            "Google": "https://deploy.cloud.run/?git_repo=https://github.com/redis-developer/Reeko-Slack-Bot.git"
         }
     ],
-    
+
     "language": ["Typescript","Python"],
     "redis_commands": ["FT.SUGADD","FT.SEARCH","FT.SUGDEL","HSET","JSON.SET","JSON.GET","JSON.DEL"],
-    "redis_features": [],
-    "redis_modules": ["RedisJSON","RediSearch"],
+    "redis_use_cases": [],
+    "redis_features": ["JSON","Search and Query"],
     "app_image_urls": ["https://bucket-1234.s3.amazonaws.com/Reeko_Slack_Bot.png"],
     "youtube_url": "https://www.youtube.com/watch?v=QpI9fJ0DeAk",
     "special_tags": ["Hackathon"],
