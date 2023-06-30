@@ -51,12 +51,12 @@ Reeko Slack Bot enables users to access files in your S3 bucket directly from Sl
 
 ### File Searching
 
-Most of the time we don't know the exact name of the file we are looking for. We also need to check if the file is actually present in the S3 bucket. Pooling the bucket over and over again to find a file or check for its existence is a computationally expensive and slow operation. To enable faster indexing of all the files on the S3 bucket, there is a layer of RediSearch between the Slack Bot and the S3 bucket. A user can find any file using the `/s3-search` command which opens a file search dialog. RediSearch's autocomplete functionality helps in navigating or guiding the user by prompting them with likely completions and alternatives to the filenames as they are typing in.
+Most of the time we don't know the exact name of the file we are looking for. We also need to check if the file is actually present in the S3 bucket. Pooling the bucket over and over again to find a file or check for its existence is a computationally expensive and slow operation. To enable faster indexing of all the files on the S3 bucket, there is a layer ofRedis Searchbetween the Slack Bot and the S3 bucket. A user can find any file using the `/s3-search` command which opens a file search dialog. Redis Search's autocomplete functionality helps in navigating or guiding the user by prompting them with likely completions and alternatives to the filenames as they are typing in.
 
 ## Tech Stack
 
 - [Slack Block Kit](https://api.slack.com/block-kit): A UI framework for Slack apps that offers a balance of control and flexibility when building experiences.
-- [Python](https://www.python.org/): The [redisjson-py](https://github.com/RedisJSON/redisjson-py) and [redisearch-py](https://github.com/RediSearch/redisearch-py) libraries are used to connect to [**Redis**](https://redis.io) and [Slack Bolt For Python](https://slack.dev/bolt-python/concepts) is a foundational framework that we have used to handle the requests from the Slack Workspace.
+- [Python](https://www.python.org/): The [redisjson-py](https://github.com/Redis JSON/redisjson-py) and [redisearch-py](https://github.com/RediSearch/redisearch-py) libraries are used to connect to [**Redis**](https://redis.io) and [Slack Bolt For Python](https://slack.dev/bolt-python/concepts) is a foundational framework that we have used to handle the requests from the Slack Workspace.
 - [Nodejs](https://nodejs.org/en/): Responsible for Image Generation
 
 ## Architecture Diagram
@@ -73,22 +73,22 @@ Slash commands perform a very simple task: they take whatever text you enter aft
 
 We have used 2 Redis Modules.
 
-- [RedisJSON](https://oss.redislabs.com/redisjson/) - For storing file information like filename, summary and image url.
-- [RediSearch](https://oss.redislabs.com/redisearch/) - For searching files in the S3 bucket
+- [Redis JSON](https://oss.redislabs.com/redisjson/) - For storing file information like filename, summary and image url.
+- [Redis Search](https://oss.redislabs.com/redisearch/) - For searching files in the S3 bucket
 
-Initialising RediSearch in redisearch_connector.py. Creating an index with the name `file_index`.
+InitialisingRedis Searchin redisearch_connector.py. Creating an index with the name `file_index`.
 
 ```py
-from redisearch import Client, TextField, AutoCompleter, Suggestion
+fromRedis Searchimport Client, TextField, AutoCompleter, Suggestion
 
-class RedisSearchConnector():
+class Redis SearchConnector():
     def __init__(self):
         self.index_name = 'file_index'
         self.client = Client(self.index_name)
         self.ac = AutoCompleter(self.index_name)
 ```
 
-Initialising RedisJSON in redisjson_connector.py
+Initialising Redis JSON in redisjson_connector.py
 
 ```py
 from rejson import Client, Path
@@ -99,7 +99,7 @@ class RedisJsonConnector():
 
 ```
 
-Creating an index on RediSearch
+Creating an index on Redis Search
 
 ```bash
 FT.CREATE file-index ON HASH SCHEMA file_name TEXT SORTABLE file_id TEXT created TEXT timestamp TEXT mimetype TEXT filetype TEXT user_id TEXT size
@@ -109,7 +109,7 @@ FT.CREATE file-index ON HASH SCHEMA file_name TEXT SORTABLE file_id TEXT created
 
 ### File shared on Slack
 
-Whenever a new file is shared in any public slack channel the [**file_share event**](https://api.slack.com/events/file_shared#:~:text=The%20file_shared%20event%20is%20sent,the%20files.info%20API%20method.) is sent to the Slack Bolt app. Firstly the file name is added as suggestion using the `FT.SUGADD` command in RediSearch, the file data like name, created, timestamp, mimetype, filetype, size, summary and image file path are added using the `JSON.SET` command.
+Whenever a new file is shared in any public slack channel the [**file_share event**](https://api.slack.com/events/file_shared#:~:text=The%20file_shared%20event%20is%20sent,the%20files.info%20API%20method.) is sent to the Slack Bolt app. Firstly the file name is added as suggestion using the `FT.SUGADD` command in Redis Search, the file data like name, created, timestamp, mimetype, filetype, size, summary and image file path are added using the `JSON.SET` command.
 The file is then stored on the S3 bucket as an object with the key as the filename.
 
 ```bash
@@ -138,7 +138,7 @@ JSON.GET amazonshareholderletterpdf
 
 [![5](https://raw.githubusercontent.com/redis-developer/Reeko-Slack-Bot/master/photos/screenshots/5.gif)](https://raw.githubusercontent.com/redis-developer/Reeko-Slack-Bot/master/photos/screenshots/5.gif)
 
-This command permanently deletes a file from the S3 bucket. All you have to do is get the filename from **command["text']** parameter. The file data is deleted from RedisJson using the `JSON.DEL` command and it is removed from RediSearch's suggestions using the `FT.SUGDEL` command. Users are informed once the file is successfully deleted
+This command permanently deletes a file from the S3 bucket. All you have to do is get the filename from **command["text']** parameter. The file data is deleted from RedisJson using the `JSON.DEL` command and it is removed from Redis Search's suggestions using the `FT.SUGDEL` command. Users are informed once the file is successfully deleted
 
 ```bash
 FT.SUGDEL file-index "amazon-shareholder-letter.pdf"
@@ -202,7 +202,7 @@ Here is the document summary for the [Amazon 2020 shareholder letter](https://s2
 
 ### Redis
 
-Redismod - a Docker image with select Redis Labs modules
+Redismod - a Docker image with select Redis modules
 
 ```bash
     docker pull redislabs/redismod
